@@ -126,12 +126,12 @@ class HistogramLayer(nn.Module):
 
         #raise NotImplementedError('`HistogramLayer.forward` function in '+ '`student_sift.py` needs to be implemented')
         new = torch.zeros(cosines.shape)
-        maxIdx = cosines.argmax(1)
+        maxIdx = cosines.argmax(1) # find max of index
         for i in range(new.shape[2]):
             for j in range(new.shape[3]):
                 new[0,maxIdx[0,i,j],i,j] = 1
-        per_px_histogram = torch.mul(torch.norm(im_grads,   dim=1), new)
-
+        per_px_histogram = torch.mul(torch.norm(im_grads,   dim=1), new) #normal * histogram
+     
         #######################################################################
         #                           END OF YOUR CODE                          #
         #######################################################################
@@ -244,7 +244,7 @@ class SIFTOrientationLayer(nn.Module):
 
         #raise NotImplementedError('`__init__` in `SIFTOrientationLayer` needs '+ 'to be implemented')
         self.layer = None
-        self.layer =  torch.nn.Conv2d(2, 8, 1, bias=None)
+        self.layer =  torch.nn.Conv2d(2, 8, 1, bias=None) #(in_channels, out_channels, kernel_size)
         self.layer.weight = torch.nn.Parameter(self.get_orientation_bin_weights())
 
         #######################################################################
@@ -409,8 +409,6 @@ def get_siftnet_features(img_bw: torch.Tensor, x: np.ndarray, y: np.ndarray) -> 
     ###########################################################################
     # TODO: YOUR CODE HERE                                                    #
     ###########################################################################
-
- 
 
     sift = net(img_bw).detach().numpy()
     vector = np.zeros((x.shape[0], 128))

@@ -362,8 +362,7 @@ def show_correspondence_lines(imgA, imgB, X1, Y1, X2, Y2, line_colors=None):
         # newImg = cv2.line(newImg, (x1, y1), (x2+shiftX, y2), line_color, 2,
         #                                     cv2.LINE_AA)
         draw.ellipse((x1-r, y1-r, x1+r, y1+r), fill=tuple(dot_color))
-        draw.ellipse((x2+shiftX-r, y2-r, x2+shiftX+r, y2+r),
-            fill=tuple(dot_color))
+        draw.ellipse((x2+shiftX-r, y2-r, x2+shiftX+r, y2+r),fill=tuple(dot_color))
         draw.line((x1, y1, x2+shiftX, y2), fill=tuple(line_color), width=10)
     return PIL_image_to_numpy_arr(newImg, True)
 

@@ -350,10 +350,15 @@ class NMSLayer(torch.nn.Module):
 
 
         #raise NotImplementedError('`NMSLayer` needs to be implemented')
-        B,C,W,H = list(x.size())
-        R = x
-        output = (R>(R.max()*0.05))
+        #B,C,W,H = list(x.size())
+        #R = x
+        #output = (R>(R.max()*0.05))
         #print(output)
+
+        #pool = nn.MaxPool2d((3, 3), stride=(1, 1), padding=(3 // 2, 3 // 2))
+        output = torch.where(x > 0.5, x, torch.tensor(0).float())
+        #output = torch.where(pool(output) == output, torch.tensor(1).float(), torch.tensor(0).float())
+        #output = torch.mul(output, x)
 
         #######################################################################
         #                           END OF YOUR CODE                          #
